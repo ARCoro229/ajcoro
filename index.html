@@ -1,70 +1,25 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Data reader</title>
-	<script type="text/JavaScript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js" ></script>
-	<script src="jquery-csv.js"></script>
+	<script src = myFirstFunc.js></script>
+	<!--
+	<link rel="stylesheet" href="styles.css">
+	-->
 </head>
-
 <body>
 
-<h1>Health Analysis</h1>
+	<h1>Web Page</h1>
+	<p id="demo">Demo v 1.0</p>
+	<input type="file" id="fileUpload" >
+	<input type="button" id="upload" value="Upload" onclick = "Upload()" >
+	<input type="button" id="clearfield" value="Clear Fields" onclick = "clearField()" >
+	<input type="button" id="GradDescent" value="Gradient Descent" onclick = "GradientDescent()" >
 
-<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
-<script type="text/javascript">
-	var superTable = [];
-		$(function () {
-				$("#upload").bind("click", function () {
-						var regex = /^([a-zA-Z0-9\s_\\.\-:])+(.csv|.txt)$/;
-						if (regex.test($("#fileUpload").val().toLowerCase())) {
-								if (typeof (FileReader) != "undefined") {
-										var reader = new FileReader();
-										reader.onload = function (e) {
-												var table = $("<table />");
-												var rows = e.target.result.split("\n");
-												for (var i = 0; i < rows.length; i++) {
-														var row = $("<tr />");
-														var cells = rows[i].split(",");
-														if (cells.length > 1) {
-																for (var j = 0; j < cells.length; j++) {
-																		var cell = $("<td />");
-																		cell.html(cells[j]);
-																		row.append(cell);
-																}
-																table.append(row);
-														}
-												}
-												$("#dvCSV").html('');
-												$("#dvCSV").append(table);
-												superTable.append(table);
-										}
-										reader.readAsText($("#fileUpload")[0].files[0]);
-								} else {
-										alert("This browser does not support HTML5.");
-								}
-						} else {
-								alert("Please upload a valid CSV file.");
-						}
-				});
-		});
-
-		
-		function printTable() {
-			document.write(supertable[0][0]);
-		}
-
-</script>
-<input type="file" id="fileUpload" />
-<input type="button" id="upload" value="Upload" />
-<input type="button" id="calculate" value= "Print" onclick="printTable()" />
-
-<p id="tabler">A Paragraph</p>
-
-<hr />
-<div id="dvCSV">
-</div>
-
-</script>
+	<p id="array"></p>
+	<p id="table"></p>
+	<p id="tab"></p>
+	<p id="tester"></p>
+	<p id="Test_Field"></p>
 
 </body>
 </html>
