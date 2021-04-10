@@ -1,5 +1,7 @@
 
+//import "js-regression";
 const { Matrix } = require('ml-matrix');
+var jsregression = require('js-regression');
 
 var resulMain = null; //main table
 //var x_arrMain = null; //x values
@@ -33,8 +35,8 @@ function Upload() {												//MAIN FUNCTION: for uploading csv to arrays
 			}
 			reader.readAsText(fileUpload.files[0]);
 		} else {
-				alert("This browser does not support HTML5.");
-			}
+			alert("This browser does not support HTML5.");
+		}
 	} else {
 		alert("Please upload a valid CSV file.");
 	}
@@ -176,9 +178,6 @@ function loss(A, Y, X) {
 	return Sub_1;
 }
 
-function LogRegression(alpha) {
-
-}
 
 function GradientDescent() {
 	if (resulMain != null) {
@@ -254,6 +253,46 @@ function GradientDescent() {
 	}
 }
 
+function LinRegression() {
+	if (resulMain != null) {
+		//var jsregression = require('js-regression');
+		document.getElementById("Test_Field").innerHTML = ("");
+		// var jsregression = require('js-regression');
+		document.getElementById("Test_Field").innerHTML += ("You chose Linear Regression!" + "<br>");
+		// === training data generated from y = 2.0 + 5.0 * x + 2.0 * x^2 === //
+		var data = [];
+		for(var x = 1.0; x < 100.0; x += 1.0) {
+			var y = 2.0 + 5.0 * x + 2.0 * x * x + Math.random() * 1.0;
+			data.push([x, x * x, y]); // Note that the last column should be y the output
+		}
+	 	//document.getElementById("Test_Field").innerHTML += (data + "<br>");
+	 	//printArray2(data);
+		// === Create the linear regression === //
+		var regression = new jsregression.LinearRegression({
+			alpha: 0.001, // 
+			iterations: 300,
+			lambda: 0.0
+		});
+		// can also use default configuration: 
+		//var regression = new jsregression.LinearRegression(); 
+	 	document.getElementById("Test_Field").innerHTML += ("Training!" + "<br>");
+		// === Train the linear regression === //
+		var model = regression.fit(data);
+	 
+		// === Print the trained model === //
+		document.getElementById("Test_Field").innerHTML += (model + "<br>");
+	 
+		// === Testing the trained linear regression === //
+		var testingData = [];
+		for(var x = 1.0; x < 100.0; x += 1.0) {
+			var actual_y = 2.0 + 5.0 * x + 2.0 * x * x + Math.random() * 1.0;
+			var predicted_y = regression.transform([x, x * x]);
+			document.getElementById("Test_Field").innerHTML += ("actual: " + actual_y + " predicted: " + predicted_y + "<br>");
+		}
+	} else {
+		alert("You have not uploaded a CSV file.");
+	}
+}
 
 // Leftover codes you might want to try and test out:
 //var x_arr = new Matrix(getX_values(resul));	
